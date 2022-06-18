@@ -1,43 +1,37 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{html,js,ts,tsx}"],
   theme: {
     extend: {
-      boxShadow: {
-        circle: "0 0 10px 5px rgba(99, 183, 177,1)",
-      },
       colors: {
         primary: "#ff7506",
         secondary: "#A9A9B0",
-        "primary-50": "#FFF2E7",
-        "primary-300": "#FFAC6A",
+        "yellow/0": "#FFB800",
+        "yellow/0.5": "#F7F8FB",
+        "yellow/1": "#FF993C",
+        "yellow/2": "#C55E00",
+        "yellow/3": "#FFBA7B",
         "primary-400": "#FF9138",
-        "primary-500": "#FF7506",
-        "primary-blue": "#4680FF",
-        "primary-blue-300": "#568AFC",
-        "primary-light-blue": "rgba(66, 120, 255, 0.201)",
-        "primary-red": "#FF5252",
-        "primary-pink": "#F976B9",
-        "primary-pink-300": "#EF83BA",
-        "primary-organe": "#FF9A48",
-        "primary-organe-50": "#FFF2E7",
-        "primary-light-orange": "rgba(255, 154, 72, 0.201)",
-        "primary-green": "#92CD4F",
-        "primary-green-300": "#9CCC65",
-        "primary-green-500": "#34CD26",
-        "primary-purple": "#8E90F8",
-        "primary-purple-300": "#A5A6F6",
-        "primary-gray-50": "#EAEAEC",
-        "primary-gray-300": "#37474F",
-        "primary-gray-400": "#535261",
-        "primary-gray-light-400": "#7E7D88",
-        "primary-gray-500": "#282739",
-        "primary-gray-800": "#0A0A0E",
-        "primary-light-gray": "#f6f6f6",
+        "grey/2": "#F1F4F8",
+        "grey/3": "#F7F8FB",
+        "grey/4": "#A5A8B1",
+        "grey/5": "#919DBA",
+        "grey-background": "#EAF1F8",
+        promomote: "#03AC00",
+        "primary-red": "#FD5959",
+        "red-background": "#F8EBE8",
+        "dashboard-background": "#F9F6F4",
+        "chart-linear":
+          "linear-gradient(180deg, rgba(250, 160, 95, 0.26) 0%, rgba(255, 255, 255, 0) 141.68%)",
+        "chart-donut-1": "#FF8A48",
+        "chart-donut-2": "#4F75FF",
       },
     },
     screens: {
+      "4xl": { max: "1920px" },
+      "3xl": { max: "1600px" },
       "2xl": { max: "1440px" },
-      // => @media (max-width: 1535px) { ... }
+      // => @media (max-width: 1440px) { ... }
 
       xl: { max: "1279px" },
       // => @media (max-width: 1279px) { ... }
