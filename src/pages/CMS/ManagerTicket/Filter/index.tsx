@@ -52,14 +52,18 @@ const FilterTicket = ({ handlePopup, handleReceiveFilter, isOpen }: Props) => {
   }
   return (
     <Modal
-        centered
-        visible={isOpen}
-        className='bg-white filter-ticket min-w-[634px] rounded-xl'
-        closable={false}
-        footer={null}
-        onCancel={()=>{handlePopup(false)}}
-      >
-      <h2 className="text-center font-bold text-2xl mb-[27px]">Lọc vé</h2>
+      centered
+      visible={isOpen}
+      className="bg-white filter-ticket min-w-[634px] rounded-xl"
+      closable={false}
+      footer={null}
+      onCancel={() => {
+        handlePopup(false);
+      }}
+    >
+      <h2 className="text-center font-bold text-2xl mb-[27px] 2xl:text-lg">
+        Lọc vé
+      </h2>
       <Form name="nest-messages" onFinish={onFinish} form={form}>
         <div className="w-full flex items-center mb-[20px]">
           <div className="flex flex-col  gap-y-6 w-1/2 text-base font-semibold">
@@ -72,7 +76,7 @@ const FilterTicket = ({ handlePopup, handleReceiveFilter, isOpen }: Props) => {
               value={time.startDay}
             />
           </div>
-          <div className="flex flex-col  gap-y-6 w-1/2 text-base font-semibold">
+          <div className="flex flex-col  gap-y-6 w-1/2 text-base font-semibold 2xl:text-sm 2xl:gap-y-3">
             Đến ngày
             <DatePicker
               name="day"
@@ -86,8 +90,7 @@ const FilterTicket = ({ handlePopup, handleReceiveFilter, isOpen }: Props) => {
         </div>
         <h2 className="font-semibold text-base mb-[9px]">Tình trạng sử dụng</h2>
         <Form.Item name="tinhTrang" className="mb-[20px]">
-          <Radio.Group className="w-full"
-          >
+          <Radio.Group className="w-full">
             <Row className="w-full">
               <Col span={4}>
                 <Radio value="all">Tất cả</Radio>
@@ -106,9 +109,7 @@ const FilterTicket = ({ handlePopup, handleReceiveFilter, isOpen }: Props) => {
         </Form.Item>
         <h2 className="font-semibold text-base mb-[8px]">Cổng Check - in</h2>
         <Form.Item name="congCheckin">
-          <Checkbox.Group className="w-full"
-            onChange={checkBoxOnchange}
-          >
+          <Checkbox.Group className="w-full" onChange={checkBoxOnchange}>
             <Row className="w-full">
               <Col span={8}>
                 <Checkbox value="all" style={{ lineHeight: "32px" }}>
@@ -116,42 +117,60 @@ const FilterTicket = ({ handlePopup, handleReceiveFilter, isOpen }: Props) => {
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="1" style={{ lineHeight: "32px" }} disabled={checkBoxStatus}>
+                <Checkbox
+                  value="1"
+                  style={{ lineHeight: "32px" }}
+                  disabled={checkBoxStatus}
+                >
                   Cổng 1
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="2" style={{ lineHeight: "32px" }} disabled={checkBoxStatus}>
+                <Checkbox
+                  value="2"
+                  style={{ lineHeight: "32px" }}
+                  disabled={checkBoxStatus}
+                >
                   Cổng 2
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="3" style={{ lineHeight: "32px" }} disabled={checkBoxStatus}>
+                <Checkbox
+                  value="3"
+                  style={{ lineHeight: "32px" }}
+                  disabled={checkBoxStatus}
+                >
                   Cổng 3
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="4" style={{ lineHeight: "32px" }} disabled={checkBoxStatus}>
+                <Checkbox
+                  value="4"
+                  style={{ lineHeight: "32px" }}
+                  disabled={checkBoxStatus}
+                >
                   Cổng 4
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="5" style={{ lineHeight: "32px" }} disabled={checkBoxStatus}>
+                <Checkbox
+                  value="5"
+                  style={{ lineHeight: "32px" }}
+                  disabled={checkBoxStatus}
+                >
                   Cổng 5
                 </Checkbox>
               </Col>
             </Row>
           </Checkbox.Group>
         </Form.Item>
-        <Space
-        className="w-full items-center justify-center"
-        >
-        <Button
-        className="mt-[20px] btn w-[160px] h-[50px] hover:border-yellow/1 hover:text-yellow/1 font-bold text-lg"
-        htmlType="submit"
-        >   
+        <Space className="w-full items-center justify-center">
+          <Button
+            className="mt-[20px] btn w-[160px] h-[50px] hover:border-yellow/1 hover:text-yellow/1 font-bold text-lg"
+            htmlType="submit"
+          >
             Lọc
-        </Button>
+          </Button>
         </Space>
       </Form>
     </Modal>

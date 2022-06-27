@@ -27,13 +27,13 @@ const CustomTemplate = (props: Props) => {
     <div className="template container min-h-screen mx-auto pt-[17px] pb-8 px-8 bg-dashboard-background rounded-3xl">
       <div className="wrapper flex relative">
         <div className="flex flex-col nav w-[13.5%] h-full bg-red lg:w-1/5 md:hidden ">
-          <Link to="/">
+          <Link to="/" className="2xl:w-[100px]">
             <img src="/images/logo_insight.jpg" alt="logo" />
           </Link>
           <ul className="mt-[59px] flex flex-col gap-y-2 flex-1">
             <NavLink
               to="/"
-              className="block w-full py-[15px] pl-[27px] xl:pl-[10px]"
+              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
             >
               <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                 <HomeIcon className="w-[20px]" /> Trang chủ
@@ -41,7 +41,7 @@ const CustomTemplate = (props: Props) => {
             </NavLink>
             <NavLink
               to="/manager-ticket"
-              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] "
+              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
             >
               <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                 <TicketIcon className="w-[20px]" /> Quản lý vé
@@ -49,7 +49,7 @@ const CustomTemplate = (props: Props) => {
             </NavLink>
             <NavLink
               to="/checking-ticket"
-              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] "
+              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
             >
               <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                 <i className="fas fa-file-invoice"></i>Đối soát vé
@@ -58,7 +58,7 @@ const CustomTemplate = (props: Props) => {
             <div className="w-full flex items-center flex-col">
               <NavLink
                 to="/ticket-package"
-                className="cursor-pointer w-full py-[15px] pl-[27px] xl:pl-[10px]"
+                className="cursor-pointer w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
               >
                 <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                   <CogIcon className="w-[20px]" /> Cài đặt
@@ -76,7 +76,7 @@ const CustomTemplate = (props: Props) => {
               </div>
             </div>
           </ul>
-          <span className="absolute bottom-0 left-0 text-sm mt-auto">
+          <span className="absolute bottom-0 left-0 text-sm mt-auto 2xl:text-[8px]">
             Copyright &copy; 2020 Alta Software{" "}
           </span>
         </div>
@@ -130,7 +130,7 @@ const CustomTemplate = (props: Props) => {
             <ul className="mt-[59px] flex flex-col gap-y-2 ">
               <NavLink
                 to="/"
-                className="w-full py-[15px] pl-[27px] xl:pl-[10px]"
+                className="w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
               >
                 <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                   <HomeIcon className="w-[20px]" /> Trang chủ
@@ -138,7 +138,7 @@ const CustomTemplate = (props: Props) => {
               </NavLink>
               <NavLink
                 to="/manager-ticket"
-                className="w-full py-[15px] pl-[27px] xl:pl-[10px] "
+                className="w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
               >
                 <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                   <TicketIcon className="w-[20px]" /> Quản lý vé
@@ -146,7 +146,7 @@ const CustomTemplate = (props: Props) => {
               </NavLink>
               <NavLink
                 to="/checking-ticket"
-                className="w-full py-[15px] pl-[27px] xl:pl-[10px] "
+                className="w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
               >
                 <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                   <i className="fas fa-file-invoice"></i>Đối soát vé
@@ -155,7 +155,7 @@ const CustomTemplate = (props: Props) => {
               <div className="w-full flex items-center flex-col">
                 <NavLink
                   to="/ticket-package"
-                  className="cursor-pointer w-full py-[15px] pl-[27px] xl:pl-[10px]"
+                  className="cursor-pointer w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
                 >
                   <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                     <CogIcon className="w-[20px]" /> Cài đặt

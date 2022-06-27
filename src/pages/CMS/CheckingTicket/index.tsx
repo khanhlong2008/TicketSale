@@ -6,6 +6,8 @@ import React, { useEffect, useRef, useState } from "react";
 import TicketServices from "../../../db/services/ticket.services";
 import ITicket from "../../../db/types/ticket.type";
 import "./style.scss";
+import CsvDownloader from "react-csv-downloader";
+import CsvDownload from "react-csv-downloader";
 type Props = {};
 
 const CheckingTicket = (props: Props) => {
@@ -16,6 +18,7 @@ const CheckingTicket = (props: Props) => {
     startDay: moment(),
     endDay: moment().add(7, "days"),
   });
+  const [excelExport, setExcelExport] = useState<any>();
   const [table, setTable] = useState({
     data: [],
     pagination: {
@@ -74,7 +77,7 @@ const CheckingTicket = (props: Props) => {
         if (record.status === "used") {
           return (
             <span className="font-medium text-grey/4 italic text-sm">
-              Chưa đối soát
+              Đã đối soát
             </span>
           );
         } else {
@@ -86,6 +89,36 @@ const CheckingTicket = (props: Props) => {
         }
       },
       align: "center" as AlignType,
+    },
+  ];
+  const excelColumns = [
+    {
+      displayName: "STT",
+      id: "stt",
+    },
+    {
+      displayName: "STT",
+      id: "stt",
+    },
+    {
+      displayName: "Số vé",
+      id: "numberTicket",
+    },
+    {
+      displayName: "Ngày sử dụng",
+      id: "dateUsed",
+    },
+    {
+      displayName: "Tên loại vé",
+      id: "nameTicket",
+    },
+    {
+      displayName: "Cổng check - in",
+      id: "gateCheckin",
+    },
+    {
+      displayName: "Tình trang đối soát",
+      id: "doiSoat",
     },
   ];
   useEffect(() => {
@@ -106,6 +139,26 @@ const CheckingTicket = (props: Props) => {
       });
     })();
   }, []);
+  useEffect(() => {
+    if (table) {
+      let excelData = table.data.map((item: any) => {
+        let usedDate = item.dateUsed as any;
+        return {
+          ...item,
+          dateUsed: usedDate
+            ? `${moment(usedDate.toDate()).format("DD/MM/YYYY HH:mm:ss")}`
+            : "_",
+          doiSoat: item.status === "used" ? "Đã đối soát" : "Chưa đối soát",
+          nameTicket: "Vé cổng",
+          gateCheckin: "Cổng" + item.gateCheckin,
+        };
+      });
+      setExcelExport({
+        columns: excelColumns,
+        datas: [...excelData],
+      });
+    }
+  }, [table]);
   const handlePanigationChange = (current: any) => {
     setTable({ ...table, pagination: { ...table.pagination, current } });
   };
@@ -177,7 +230,18 @@ const CheckingTicket = (props: Props) => {
           </div>
           <div className="flex gap-x-[10px] ml-auto">
             <div className="btn fill cursor-pointer">Chốt đối soát</div>
-            <div className="btn cursor-pointer">Xuất file (.csv)</div>
+            <CsvDownload
+              filename="bao_cao_doi_soat_ve"
+              extension=".csv"
+              separator=";"
+              wrapColumnChar=""
+              columns={excelExport?.columns}
+              datas={excelExport?.datas}
+            >
+              <div className="btn cursor-pointer  2xl:text-xs">
+                Xuất file (.csv)
+              </div>
+            </CsvDownload>
           </div>
         </div>
         {/* Table */}

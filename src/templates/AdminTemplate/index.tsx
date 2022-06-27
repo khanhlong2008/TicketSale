@@ -28,12 +28,16 @@ const Admintemplate = (props: Props) => {
       <div className="wrapper flex relative">
         <div className="flex flex-col nav w-[13.5%] h-full bg-red lg:w-1/5 md:hidden ">
           <Link to="/">
-            <img src="/images/logo_insight.jpg" alt="logo" />
+            <img
+              src="/images/logo_insight.jpg"
+              alt="logo"
+              className="2xl:w-[100px]"
+            />
           </Link>
           <ul className="mt-[59px] flex flex-col gap-y-2 flex-1">
             <NavLink
               to="/"
-              className="block w-full py-[15px] pl-[27px] xl:pl-[10px]"
+              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
             >
               <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                 <HomeIcon className="w-[20px]" /> Trang chủ
@@ -41,7 +45,7 @@ const Admintemplate = (props: Props) => {
             </NavLink>
             <NavLink
               to="/manager-ticket"
-              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] "
+              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
             >
               <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                 <TicketIcon className="w-[20px]" /> Quản lý vé
@@ -49,7 +53,7 @@ const Admintemplate = (props: Props) => {
             </NavLink>
             <NavLink
               to="/checking-ticket"
-              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] "
+              className="block w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
             >
               <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                 <i className="fas fa-file-invoice"></i>Đối soát vé
@@ -58,7 +62,7 @@ const Admintemplate = (props: Props) => {
             <div className="w-full flex items-center flex-col">
               <NavLink
                 to="/ticket-package"
-                className="cursor-pointer w-full py-[15px] pl-[27px] xl:pl-[10px]"
+                className="cursor-pointer w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
               >
                 <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                   <CogIcon className="w-[20px]" /> Cài đặt
@@ -76,7 +80,7 @@ const Admintemplate = (props: Props) => {
               </div>
             </div>
           </ul>
-          <span className="absolute bottom-0 left-0 text-sm mt-auto">
+          <span className="absolute bottom-0 left-0 text-sm mt-auto 2xl:text-[8px]">
             Copyright &copy; 2020 Alta Software{" "}
           </span>
         </div>
@@ -97,14 +101,14 @@ const Admintemplate = (props: Props) => {
               <img
                 src="/images/svgs/mail.svg"
                 alt="mail"
-                className="cursor-pointer"
+                className="cursor-pointer 2xl:w-[15px]"
               />
               <img
                 src="/images/svgs/bell.svg"
                 alt="bell"
-                className="cursor-pointer"
+                className="cursor-pointer 2xl:w-[15px]"
               />
-              <div className="avatar rounded-full h-[48px] w-[48px] cursor-pointer shrink-0">
+              <div className="avatar rounded-full h-[48px] w-[48px] cursor-pointer shrink-0 2xl:h-[35px] 2xl:w-[35px]">
                 <img
                   className="w-full h-full rounded-full object-cover"
                   src="/images/khanhlong.jpg"
@@ -130,7 +134,7 @@ const Admintemplate = (props: Props) => {
             <ul className="mt-[59px] flex flex-col gap-y-2 ">
               <NavLink
                 to="/"
-                className="w-full py-[15px] pl-[27px] xl:pl-[10px]"
+                className="w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
               >
                 <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                   <HomeIcon className="w-[20px]" /> Trang chủ
@@ -138,7 +142,7 @@ const Admintemplate = (props: Props) => {
               </NavLink>
               <NavLink
                 to="/manager-ticket"
-                className="w-full py-[15px] pl-[27px] xl:pl-[10px] "
+                className="w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
               >
                 <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                   <TicketIcon className="w-[20px]" /> Quản lý vé
@@ -146,7 +150,7 @@ const Admintemplate = (props: Props) => {
               </NavLink>
               <NavLink
                 to="/checking-ticket"
-                className="w-full py-[15px] pl-[27px] xl:pl-[10px] "
+                className="w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
               >
                 <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                   <i className="fas fa-file-invoice"></i>Đối soát vé
@@ -155,7 +159,7 @@ const Admintemplate = (props: Props) => {
               <div className="w-full flex items-center flex-col">
                 <NavLink
                   to="/ticket-package"
-                  className="cursor-pointer w-full py-[15px] pl-[27px] xl:pl-[10px]"
+                  className="cursor-pointer w-full py-[15px] pl-[27px] xl:pl-[10px] 2xl:py-2 2xl:pl-3"
                 >
                   <li className="flex items-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                     <CogIcon

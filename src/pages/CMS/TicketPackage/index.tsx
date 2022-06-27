@@ -151,7 +151,40 @@ const TicketPackage = (props: Props) => {
       },
     },
   ];
-
+  const excelColumns = [
+    {
+      displayName: "STT",
+      id: "stt",
+    },
+    {
+      displayName: "Mã gói",
+      id: "codePackage",
+    },
+    {
+      displayName: "Tên gói vé",
+      id: "namePackage",
+    },
+    {
+      displayName: "Ngày áp dụng",
+      id: "dateApply",
+    },
+    {
+      displayName: "Ngày hết hạn",
+      id: "dateExpire",
+    },
+    {
+      displayName: "Giá vé (VNĐ/Vé)",
+      id: "singleTicketPrice",
+    },
+    {
+      displayName: "Giá Combo (VNĐ/Combo)",
+      id: "comboTicketPrice",
+    },
+    {
+      displayName: "Tình trạng",
+      id: "status",
+    },
+  ];
   useEffect(() => {
     (async () => {
       let data = await PackageTicketService.getPackageTickets();
@@ -165,6 +198,33 @@ const TicketPackage = (props: Props) => {
       setTickets(data as any);
       setTicketsFilter(data as any);
       setTable({ ...table, data: data as any });
+      let excelData = data.map((item) => {
+        let price = item.comboTicketPrice?.price.toLocaleString("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        });
+        let expire = item.dateExpire as any;
+        let apply = item.dateApply as any;
+        return {
+          ...item,
+          dateExpire: `${moment(expire.toDate()).format(
+            "DD/MM/YYYY HH:mm:ss"
+          )}`,
+          dateApply: `${moment(apply.toDate()).format("DD/MM/YYYY HH:mm:ss")}`,
+          singleTicketPrice: item.singleTicketPrice.toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }),
+          comboTicketPrice: item.comboTicketPrice
+            ? `${price} / ${item.comboTicketPrice?.amount} vé`
+            : "_",
+          status: item.status === "applying" ? "Đang áp dụng" : "Tắt",
+        };
+      });
+      setExcelExport({
+        columns: excelColumns,
+        datas: [...excelData],
+      });
     })();
   }, []);
   const handlePanigationChange = (current: any) => {
@@ -222,11 +282,11 @@ const TicketPackage = (props: Props) => {
   return (
     <>
       <div className="manager-ticket">
-        <h1 className="text-4xl font-bold mb-8 2xl:text-lg">
+        <h1 className="text-4xl font-bold mb-8 2xl:text-lg 2xl:text-lg">
           Danh sách gói vé
         </h1>
         {/* Controls */}
-        <div className="flex items-center mb-8 lg:flex-col lg:items-center lg:gap-y-5">
+        <div className="flex items-center mb-8 lg:flex-col lg:items-center lg:gap-y-5 lg:flex-col lg:items-center lg:gap-y-5">
           <div className="relative w-[360px]">
             <input
               onChange={handleKeyWordChange}
@@ -292,8 +352,19 @@ const TicketPackage = (props: Props) => {
           loading={table.loading}
         />
       </div>
-      <AddPackage reset={reset} isOpen={isOpenAdd} handlePopup={handleStatusAdd}/>
-    {<UpdatePackage reset={reset} packageTicket={packageTicket} isOpen={isOpenUpdate} handlePopup={handleStatusUpdate}/>}
+      <AddPackage
+        reset={reset}
+        isOpen={isOpenAdd}
+        handlePopup={handleStatusAdd}
+      />
+      {
+        <UpdatePackage
+          reset={reset}
+          packageTicket={packageTicket}
+          isOpen={isOpenUpdate}
+          handlePopup={handleStatusUpdate}
+        />
+      }
     </>
   );
 };

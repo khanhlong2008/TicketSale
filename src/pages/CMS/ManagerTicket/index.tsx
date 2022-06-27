@@ -9,6 +9,7 @@ import { DotsVerticalIcon } from "@heroicons/react/outline";
 import ChangeDateExpire from "./ChangeDateExpire";
 import TicketServices from "../../../db/services/ticket.services";
 import ITicket from "../../../db/types/ticket.type";
+import CsvDownload from "react-csv-downloader";
 type Props = {};
 
 const ManagerTicket = (props: Props) => {
@@ -22,6 +23,7 @@ const ManagerTicket = (props: Props) => {
     },
     loading: false,
   });
+  const [excelExport, setExcelExport] = useState<any>();
   const [tickets, setTickets] = useState([]);
   const [ticketsFilter, setTicketsFilter] = useState([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -84,10 +86,10 @@ const ManagerTicket = (props: Props) => {
       dataIndex: "dateUsed",
       width: "10%",
       render: (dateUsed: any) => {
-        if(dateUsed){
-          return <span>{moment(dateUsed.toDate()).format('DD/MM/YYYY')}</span>
-        }else{
-          return <span className="text-lg">-</span>
+        if (dateUsed) {
+          return <span>{moment(dateUsed.toDate()).format("DD/MM/YYYY")}</span>;
+        } else {
+          return <span className="text-lg">-</span>;
         }
       },
       align: "right" as AlignType,
@@ -119,12 +121,52 @@ const ManagerTicket = (props: Props) => {
       width: "5%",
       render: (number: any, record: any) => {
         if (record.status === "pending") {
-          return <DotsVerticalIcon className="w-[18px] h-[36px] cursor-pointer" 
-          onClick={()=>{handlePopupExpire(record.id)}}/>
+          return (
+            <DotsVerticalIcon
+              className="w-[18px] h-[36px] cursor-pointer"
+              onClick={() => {
+                handlePopupExpire(record.id);
+              }}
+            />
+          );
         } else {
           return "";
         }
       },
+    },
+  ];
+  const excelColumns = [
+    {
+      displayName: "STT",
+      id: "stt",
+    },
+    {
+      displayName: "Booking code",
+      id: "codeBooking",
+    },
+    {
+      displayName: "Số vé",
+      id: "numberTicket",
+    },
+    {
+      displayName: "Tên sự kiện",
+      id: "nameEvent",
+    },
+    {
+      displayName: "Tình trạng sử dụng",
+      id: "status",
+    },
+    {
+      displayName: "Ngày sử dụng",
+      id: "dateUsed",
+    },
+    {
+      displayName: "Hạn sử dụng",
+      id: "dateExpire",
+    },
+    {
+      displayName: "Cổng check - in",
+      id: "gateCheckin",
     },
   ];
   useEffect(() => {
@@ -142,6 +184,33 @@ const ManagerTicket = (props: Props) => {
       setTable({ ...table, data: data as any });
     })();
   }, []);
+  useEffect(() => {
+    if (table) {
+      let excelData = table.data.map((item: any) => {
+        let usedDate = item.dateUsed as any;
+        let expireDate = item.dateExpire as any;
+
+        return {
+          ...item,
+          dateUsed: usedDate
+            ? `${moment(usedDate.toDate()).format("DD/MM/YYYY")}`
+            : "_",
+          dateExpire: `${moment(expireDate.toDate()).format("DD/MM/YYYY")}`,
+          gateCheckin: "Cổng" + item.gateCheckin,
+          status:
+            item.status === "used"
+              ? "Đã sử dụng"
+              : item.status === "pending"
+              ? "Chưa sử dụng"
+              : "Hết hạn",
+        };
+      });
+      setExcelExport({
+        columns: excelColumns,
+        datas: [...excelData],
+      });
+    }
+  }, [table]);
   const reset = async () => {
     let data = await TicketServices.getTickets();
     data = data.map((item, index) => {
@@ -158,7 +227,7 @@ const ManagerTicket = (props: Props) => {
   const handlePanigationChange = (current: any) => {
     setTable({ ...table, pagination: { ...table.pagination, current } });
   };
- 
+
   const handlePopupStatus = (status: boolean): void => {
     setIsOpen(status);
   };
@@ -203,28 +272,30 @@ const ManagerTicket = (props: Props) => {
     searchRef.current = setTimeout(() => {
       console.log(ticketsFilter);
       let temp = ticketsFilter.filter((item: any) => {
-        return item.numberTicket.includes(value) || item.codeBooking.includes(value);
+        return (
+          item.numberTicket.includes(value) || item.codeBooking.includes(value)
+        );
       });
       setTable({ ...table, data: temp as any });
       clearInterval(searchRef.current as any);
     }, 700);
   };
-  const handlePopupExpire = (id :string)=>{
-    let index = tickets.findIndex((item:any)=> item.id === id)
-    if(index !== -1){
-      setTicketPopup(tickets[index])
+  const handlePopupExpire = (id: string) => {
+    let index = tickets.findIndex((item: any) => item.id === id);
+    if (index !== -1) {
+      setTicketPopup(tickets[index]);
     }
-    setIsOpenChangeExpire(true)
-  }
+    setIsOpenChangeExpire(true);
+  };
   const handleStatusExpire = (status: boolean) => {
     setIsOpenChangeExpire(status);
   };
   return (
     <>
       <div className="manager-ticket">
-        <h1 className="text-4xl font-bold mb-8">Danh sách vé</h1>
+        <h1 className="text-4xl font-bold mb-8 2xl:text-xl">Danh sách vé</h1>
         {/* Controls */}
-        <div className="flex items-center mb-8">
+        <div className="flex items-center mb-8 lg:flex-col lg:items-center lg:gap-y-5">
           <div className="relative w-[360px]">
             <input
               onChange={handleKeyWordChange}
@@ -243,12 +314,21 @@ const ManagerTicket = (props: Props) => {
             >
               <FilterIcon className="w-[26px] mr-3" /> Lọc vé
             </div>
-            <div className="btn cursor-pointer">Xuất file (.csv)</div>
+            <CsvDownload
+              filename="bao_cao_quan_li_ve"
+              extension=".csv"
+              separator=";"
+              wrapColumnChar=""
+              columns={excelExport?.columns}
+              datas={excelExport?.datas}
+            >
+              <div className="btn cursor-pointer">Xuất file (.csv)</div>
+            </CsvDownload>
           </div>
         </div>
         {/* Table */}
         <Table
-          className="mt-4"
+          className="mt-4 2xl:overflow-x-scroll"
           columns={columns}
           dataSource={table.data}
           pagination={{
@@ -284,10 +364,15 @@ const ManagerTicket = (props: Props) => {
         handlePopup={handlePopupStatus}
         handleReceiveFilter={handleReceiveFilter}
       />
-      <ChangeDateExpire reset={reset} ticket={ticketPopup} isOpen={isOpenChangeExpire} handlePopup={handleStatusExpire}/>
+      <ChangeDateExpire
+        reset={reset}
+        ticket={ticketPopup}
+        isOpen={isOpenChangeExpire}
+        handlePopup={handleStatusExpire}
+      />
     </>
   );
-}
+};
 ;
 
 export default ManagerTicket;
