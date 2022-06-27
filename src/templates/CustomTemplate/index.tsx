@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   HomeIcon,
   TicketIcon,
@@ -16,8 +16,12 @@ type Props = {
 const CustomTemplate = (props: Props) => {
   const { children } = props;
   const [hambuger, setHambuger] = useState<Boolean>(false);
+  const history = useNavigate();
   const handleVisible = () => {
     setHambuger(!hambuger);
+  };
+  const redirect = (endpoint: string) => {
+    history(endpoint);
   };
   return (
     <div className="template container min-h-screen mx-auto pt-[17px] pb-8 px-8 bg-dashboard-background rounded-3xl">
@@ -60,7 +64,12 @@ const CustomTemplate = (props: Props) => {
                   <CogIcon className="w-[20px]" /> Cài đặt
                 </li>
               </NavLink>
-              <div className=" w-1/2 xl:pl-[10px] 2xl:w-full mt-2 cursor-pointer">
+              <div
+                className=" w-1/2 xl:pl-[10px] 2xl:w-full mt-2 cursor-pointer"
+                onClick={() => {
+                  redirect("/ticket-package");
+                }}
+              >
                 <div className="w-full flex items-center justify-center 4xl:justify-end gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs">
                   Gói dịch vụ
                 </div>
@@ -152,7 +161,12 @@ const CustomTemplate = (props: Props) => {
                     <CogIcon className="w-[20px]" /> Cài đặt
                   </li>
                 </NavLink>
-                <div className="xl:pl-[10px] w-full ">
+                <div
+                  className="xl:pl-[10px] w-full "
+                  onClick={() => {
+                    redirect("/ticket-package");
+                  }}
+                >
                   <div className="w-full flex items-center justify-center gap-x-[15px] text-lg 3xl:text-sm 2xl:text-xs mt-2 cursor-pointer">
                     Gói dịch vụ
                   </div>
